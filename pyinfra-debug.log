@@ -1,0 +1,33 @@
+  File "/Users/d33p/.pyenv/versions/3.11.5/lib/python3.11/site-packages/pyinfra_cli/main.py", line 222, in cli
+    _main(*args, **kwargs)
+  File "/Users/d33p/.pyenv/versions/3.11.5/lib/python3.11/site-packages/pyinfra_cli/main.py", line 392, in _main
+    run_ops(state, serial=serial, no_wait=no_wait)
+  File "/Users/d33p/.pyenv/versions/3.11.5/lib/python3.11/site-packages/pyinfra/api/operations.py", line 334, in run_ops
+    _run_single_op(state, op_hash)
+  File "/Users/d33p/.pyenv/versions/3.11.5/lib/python3.11/site-packages/pyinfra/api/operations.py", line 302, in _run_single_op
+    if not greenlet.get():
+           ^^^^^^^^^^^^^^
+  File "src/gevent/greenlet.py", line 797, in gevent._gevent_cgreenlet.Greenlet.get
+  File "src/gevent/greenlet.py", line 373, in gevent._gevent_cgreenlet.Greenlet._raise_exception
+  File "/Users/d33p/.pyenv/versions/3.11.5/lib/python3.11/site-packages/gevent/_compat.py", line 50, in reraise
+    raise value.with_traceback(tb)
+  File "src/gevent/greenlet.py", line 900, in gevent._gevent_cgreenlet.Greenlet.run
+  File "/Users/d33p/.pyenv/versions/3.11.5/lib/python3.11/site-packages/pyinfra/api/operations.py", line 184, in _run_host_op_with_context
+    return run_host_op(state, host, op_hash)
+    ^^^^^^^^^^^^^^^^^
+  File "/Users/d33p/.pyenv/versions/3.11.5/lib/python3.11/site-packages/pyinfra/api/operations.py", line 53, in run_host_op
+    return _run_host_op(state, host, op_hash)
+    ^^^^^^^^^^^^^^^^^
+  File "/Users/d33p/.pyenv/versions/3.11.5/lib/python3.11/site-packages/pyinfra/api/operations.py", line 81, in _run_host_op
+    for command in op_data.command_generator():
+      ^^^^^^^^^^^^^^^^^
+  File "/Users/d33p/.pyenv/versions/3.11.5/lib/python3.11/site-packages/pyinfra/api/operation.py", line 282, in command_generator
+    for command in func(*args, **kwargs):
+    ^^^^^^^^^^^^^^^^^
+  File "/Users/d33p/.pyenv/versions/3.11.5/lib/python3.11/site-packages/pyinfra/operations/server.py", line 199, in script
+    yield from files.put._inner(src=src, dest=temp_file)
+      ^^^^^^^^^^^^^^^^^
+  File "/Users/d33p/.pyenv/versions/3.11.5/lib/python3.11/site-packages/pyinfra/operations/files.py", line 838, in put
+    raise IOError("No such file: {0}".format(local_file))
+    ^^^^^^^^^^^^^^^^^
+OSError: No such file: /home/dev/omz-install.sh
