@@ -1,0 +1,15 @@
+# cloud-config
+
+password: verysecure
+
+users:
+- name: 'd33p'
+  groups: users,sudo
+  shell: /bin/bash
+  lock_passwd: true
+  ssh_authorized_keys:
+    - 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHABNMcOBuZqwHc9VF18aAeCQw3AFFGL8G4BJ/24t1Y3 vshatravenko@gmail.com'
+
+ssh_keys: {}
+
+ssh_deletekeys: false

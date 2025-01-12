@@ -1,10 +1,10 @@
 [project]
 name = "dev-lab-setup"
 version = "0.1.0"
-description = "Add your description here"
+description = "pyinfra-based automation for Linux dev lab setup"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "pyinfra>=3.1.1",
+    "pyinfra>=3.2.0",
 ]
 

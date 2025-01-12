@@ -155,15 +155,6 @@ wheels = [
 ]
 
 [[package]]
-name = "configparser"
-version = "7.1.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/a5/2e/a8d83652990ecb5df54680baa0c53d182051d9e164a25baa0582363841d1/configparser-7.1.0.tar.gz", hash = "sha256:eb82646c892dbdf773dae19c633044d163c3129971ae09b49410a303b8e0a5f7", size = 50122 }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/ee/df/1514580907b0bac0970415e5e24ef96a9c1fa71dcf2aa0139045b58fae9a/configparser-7.1.0-py3-none-any.whl", hash = "sha256:98e374573c4e10e92399651e3ba1c47a438526d633c44ee96143dec26dad4299", size = 17074 },
-]
-
-[[package]]
 name = "cryptography"
 version = "44.0.0"
 source = { registry = "https://pypi.org/simple" }
@@ -203,7 +194,7 @@ dependencies = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "pyinfra", specifier = ">=3.1.1" }]
+requires-dist = [{ name = "pyinfra", specifier = ">=3.2.0" }]
 
 [[package]]
 name = "distro"
@@ -397,11 +388,10 @@ wheels = [
 
 [[package]]
 name = "pyinfra"
-version = "3.1.1"
+version = "3.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "click" },
-    { name = "configparser" },
     { name = "distro" },
     { name = "gevent" },
     { name = "jinja2" },
@@ -412,9 +402,9 @@ dependencies = [
     { name = "setuptools" },
     { name = "typeguard" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/12/1c/bb923dcd1ee29272e31986ef5f64e91b586a0c685efe82672f6cf468e96d/pyinfra-3.1.1.tar.gz", hash = "sha256:5209a05897597c8747511bb559809a64a84377ae77424d3869d46583f95f2f30", size = 198499 }
+sdist = { url = "https://files.pythonhosted.org/packages/e3/5e/5dbbda367708cd34ac5a3a0d18c352ae0eee01bfd0077e23350f4c07972f/pyinfra-3.2.tar.gz", hash = "sha256:ea65f2048860dae6a7d86470d4a7ca67c9e2e82d671e781b849f1e5e163ad6db", size = 209685 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/a2/56/cf53e42877039d13c3e07d63a38ce28e2cc4dca167a2cdc5420f2766f95a/pyinfra-3.1.1-py2.py3-none-any.whl", hash = "sha256:c87c75fcc03197ce84cb078838e225669be5cc0c4d4e52e408a9e774a3d183f6", size = 255376 },
+    { url = "https://files.pythonhosted.org/packages/83/b0/a27ce89ec525e71180b0afa1069fb83886381c834c009d07802616af9b6e/pyinfra-3.2-py2.py3-none-any.whl", hash = "sha256:ca8e6f4b51031b3b56b4ab6e7ce4cb749530ec92d6ba22f1f2657e2d20231416", size = 269680 },
 ]
 
 [[package]]

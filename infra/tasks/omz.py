@@ -1,64 +1,57 @@
 from pyinfra.api.deploy import deploy
 from pyinfra.context import host
-from pyinfra.facts.server import LinuxName
+from pyinfra.facts.server import Home, LinuxName
 from pyinfra.operations import apt, files, python, server
 
 from .. import const
 
 OMZ_SRC = "https://install.ohmyz.sh/"
-OMZ_DEST = f"{const.HOME_PATH}/omz-install.sh"
-
-os_name = host.get_fact(LinuxName)
 
 
 @deploy("Install Oh My ZSH")
-def install_omz():
-    if os_name in ["Debian", "Ubuntu"]:
-        apt.packages(name="Install ZSH", packages=["zsh"], _sudo=True)
-    else:
-        raise Exception(
-            f"Detected unsupported OS distribution: {os_name}, only Debian and Ubuntu are supported"
-        )
+def install_omz(user: str, home: str):
+    server.packages("zsh", _sudo=True)
 
-    python.call(name="Set default shell to ZSH", function=configure_shell)
+    python.call(name="Set default shell to ZSH", function=configure_shell, user=user)
 
     files.directory(
         name="Remove existing Oh My ZSH files",
-        path=f"{const.HOME_PATH}/.oh-my-zsh",
+        path=f"{home}/.oh-my-zsh",
         present=False,
-        _sudo_user=const.USER,
+        _sudo_user=user,
         _sudo=True,
     )
 
+    omz_dest = f"{home}/omz-install.sh"
     files.download(
         name="Download OMZ installation script",
         src=OMZ_SRC,
-        dest=OMZ_DEST,
-        user=const.USER,
-        group=const.USER,
-        _sudo_user=const.USER,
+        dest=omz_dest,
+        user=user,
+        group=user,
+        _sudo_user=user,
         _sudo=True,
     )
 
     server.shell(
         name="Install Oh My ZSH",
-        commands=[f"sh {OMZ_DEST}"],
-        _chdir=const.HOME_PATH,
-        _env={"USER": const.USER, "HOME": const.HOME_PATH},
-        _sudo_user=const.USER,
+        commands=[f"sh {omz_dest}"],
+        _chdir=home,
+        _env={"USER": user, "HOME": home},
+        _sudo_user=user,
         _sudo=True,
     )
 
     files.file(
         name="Clean up OMZ installation script",
-        path=OMZ_DEST,
+        path=omz_dest,
         present=False,
         _sudo=True,
     )
 
 
-def configure_shell():
-    ok, out = host.run_shell_command(f"grep {const.USER}:x /etc/passwd")
+def configure_shell(user: str):
+    ok, out = host.run_shell_command(f"grep {user}:x /etc/passwd")
     if not ok:
         raise Exception(f"Could not determine the user's shell: {out.stderr}")
 
@@ -66,7 +59,7 @@ def configure_shell():
     if "zsh" not in current:
         server.shell(
             name="Change shell to ZSH",
-            commands=[f"chsh --shell $(which zsh) {const.USER}"],
+            commands=[f"chsh --shell $(which zsh) {user}"],
             _sudo=True,
         )
     else:
