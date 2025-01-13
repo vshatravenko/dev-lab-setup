@@ -1,18 +1,34 @@
 from pyinfra.api.deploy import deploy
 from pyinfra.context import host
-from pyinfra.facts.server import Home, LinuxName
-from pyinfra.operations import apt, files, python, server
-
-from .. import const
+from pyinfra.facts.files import Directory
+from pyinfra.operations import files, python, server
 
 OMZ_SRC = "https://install.ohmyz.sh/"
+
+
+def ensure_omz(user: str, home: str):
+    zsh_installed = server.shell(
+        commands=["command -v zsh"],
+        name="Check for zsh presence",
+        _sudo=True,
+    )
+
+    if zsh_installed.did_error():
+        install_omz(user, home)
+        return
+
+    omz_present = host.get_fact(Directory, path=f"{home}/.oh-my-zsh")
+
+    if not omz_present:
+        install_omz(user, home)
+    else:
+        host.noop("Oh My ZSH is already installed")
 
 
 @deploy("Install Oh My ZSH")
 def install_omz(user: str, home: str):
     server.packages("zsh", _sudo=True)
-
-    python.call(name="Set default shell to ZSH", function=configure_shell, user=user)
+    configure_shell(user)
 
     files.directory(
         name="Remove existing Oh My ZSH files",

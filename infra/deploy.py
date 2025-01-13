@@ -3,16 +3,16 @@ from pathlib import Path
 from pyinfra import logger
 from pyinfra.api.deploy import deploy
 from pyinfra.context import host
-from pyinfra.operations import git, server
+from pyinfra.operations import git, python, server
 
 from . import const
-from .tasks.omz import install_omz
+from .tasks.omz import ensure_omz
 from .tasks.pkg import install_base_pkgs
+from .tasks.pyenv import ensure_pyenv
 
 
 @deploy("Set up the dev lab")
 def setup():
-
     users = host.data.get("users")
     if not users:
         raise ValueError("`users` list is missing from inventory!")
@@ -23,7 +23,7 @@ def setup():
         new_group = const.GROUP
         server.group(group="sudo", _sudo=True)
         server.shell(
-            f"echo '%sudo ALL=(ALL) NOPASSWD: ALL' | sudo EDITOR='tee -a' visudo",
+            "echo '%sudo ALL=(ALL) NOPASSWD: ALL' | sudo EDITOR='tee -a' visudo",
             name="Enable passwordless sudo",
             _sudo=True,
         )
@@ -59,4 +59,6 @@ def setup():
             _sudo_user=user,
         )
 
-        install_omz(user, home)
+        python.call(name="Ensure Oh My ZSH", function=ensure_omz, user=user, home=home)
+
+    python.call(name="Ensure pyenv", function=ensure_pyenv)

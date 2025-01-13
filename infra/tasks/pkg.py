@@ -15,9 +15,9 @@ def install_base_pkgs():
     logger.info(f"Detected {os_name} OS name")
 
     if os_name in ["Debian", "Ubuntu"]:
-        server.packages(packages=const.UBUNTU_PACKAGES, _sudo=True)
+        server.packages(packages=const.APT_BASE_PKGS, _sudo=True)
     elif os_name in ["Fedora", "CentOS"]:
-        server.packages(packages=const.FEDORA_PACKAGES, _sudo=True)
+        server.packages(packages=const.YUM_BASE_PKGS, _sudo=True)
 
 
 def install_pkg_factory():
