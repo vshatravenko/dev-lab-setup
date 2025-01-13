@@ -3,7 +3,7 @@ from pathlib import Path
 from pyinfra import logger
 from pyinfra.api.deploy import deploy
 from pyinfra.context import host
-from pyinfra.operations import git, python, server
+from pyinfra.operations import files, git, python, server
 
 from . import const
 from .tasks.omz import ensure_omz
@@ -19,7 +19,12 @@ def setup():
 
     install_base_pkgs()
 
-    for user in users:
+    for user_conf in users:
+        user = user_conf.get("name")
+        if not user:
+            logger.error("Detected a user without `name` field specified")
+            continue
+
         new_group = const.GROUP
         server.group(group="sudo", _sudo=True)
         server.shell(
@@ -39,6 +44,26 @@ def setup():
             create_home=True,
             _sudo=True,
         )
+
+        ssh_pub_key = user_conf.get("ssh_public_key")
+        if ssh_pub_key:
+            server.files.directory(
+                name="Ensure .ssh dir",
+                path=f"home/.ssh",
+                user=user,
+                group=user,
+                recursive=True,
+                _sudo=True,
+                _sudo_user=user,
+            )
+
+            files.line(
+                name="Authorize SSH pub key",
+                path=f"{home}/.ssh/authorized_keys",
+                line=ssh_pub_key,
+                _sudo=True,
+                _sudo_user=user,
+            )
 
         nvim_path = str(Path(home, const.NVIM_DIR))
         server.files.directory(

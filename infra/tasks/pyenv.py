@@ -66,7 +66,7 @@ def install_pyenv():
     users = ["root"]
     users_data = host.data.get("users", [])
     if users_data:
-        users.extend(users_data)
+        users.extend([user.name for user in users_data])
 
     for user in users:
         logger.info(f"Ensuring pyenv config in .zshrc for {user}")
