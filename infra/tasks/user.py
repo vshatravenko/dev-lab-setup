@@ -23,7 +23,7 @@ def configure_user(conf: dict):
     if ssh_pub_key:
         server.files.directory(
             name="Ensure .ssh dir",
-            path=f"home/.ssh",
+            path=f"{home}/.ssh",
             user=user,
             group=user,
             recursive=True,

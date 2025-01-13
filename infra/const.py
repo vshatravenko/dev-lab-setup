@@ -12,6 +12,7 @@ APT_BASE_PKGS = [
 ]
 
 APT_PYENV_PKGS = [
+    "acl",
     "build-essential",
     "libssl-dev",
     "zlib1g-dev",
@@ -30,6 +31,7 @@ APT_PYENV_PKGS = [
 ]
 
 YUM_BASE_PKGS = [
+    "acl",
     "neovim",
     "git",
     "make",
