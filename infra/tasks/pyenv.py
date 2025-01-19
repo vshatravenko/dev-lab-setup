@@ -89,6 +89,8 @@ def install_build_deps():
         pkgs = const.APT_PYENV_PKGS
     elif os_name in ["Fedora", "CentOS", "RHEL"]:
         pkgs = const.YUM_PYENV_PKGS
+    elif os_name in ["Arch", "Manjaro"]:
+        pkgs = const.PACMAN_PYENV_PKGS
 
     server.packages(name="Ensure packages", packages=pkgs, _sudo=True)
 

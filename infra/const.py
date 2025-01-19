@@ -60,6 +60,21 @@ YUM_PYENV_PKGS = [
     "xz-devel",
 ]
 
+PACMAN_BASE_PKGS = [
+    "git",
+    "curl",
+    "wget",
+    "neovim",
+    "fzf",
+    "ripgrep",
+    "go",
+    "npm",
+    "unzip",
+    "gcc",
+]
+
+PACMAN_PYENV_PKGS = ["base-devel", "openssl", "zlib", "xz", "tk"]
+
 
 DEFAULT_PYTHON_VERSION = "3.12"
 

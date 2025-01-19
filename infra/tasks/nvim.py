@@ -28,6 +28,4 @@ def configure_nvim(user: str, path: str):
 
     home = host.get_fact(Home)
 
-    files.line(
-        line="alias vim=nvim", path=f"{home}/.zshrc", _sudo=True, _sudo_user=user
-    )
+    files.line(line="alias vim=nvim", path=f"{home}/.zshrc", _sudo=True)

@@ -6,18 +6,36 @@ from pyinfra.operations import apt, pacman, server, yum
 
 from infra import const
 
-SUPPORTED_DISTROS = ["Debian", "Ubuntu", "Fedora", "CentOS", "Arch", "Manjaro"]
+SUPPORTED_DISTROS = (
+    "Debian",
+    "Ubuntu",
+    "Fedora",
+    "CentOS",
+    "Arch Linux",
+    "Arch Linux ARM",
+    "Manjaro",
+    "Manjaro ARM",
+)
 
 
 @deploy("Install base packages")
 def install_base_pkgs():
     os_name = host.get_fact(LinuxName)
-    logger.info(f"Detected {os_name} OS name")
+    logger.info(f"Processing OS: {os_name}")
+
+    if os_name not in SUPPORTED_DISTROS:
+        raise Exception(
+            f"Detected unsupported OS distribution: {os_name}, only {SUPPORTED_DISTROS} are supported"
+        )
+
+    update_pkg_list()
 
     if os_name in ["Debian", "Ubuntu"]:
         server.packages(packages=const.APT_BASE_PKGS, _sudo=True)
     elif os_name in ["Fedora", "CentOS"]:
         server.packages(packages=const.YUM_BASE_PKGS, _sudo=True)
+    elif os_name in ["ArchLinux", "Arch Linux ARM", "Manjaro", "Manjaro ARM"]:
+        server.packages(packages=const.PACMAN_BASE_PKGS, _sudo=True)
 
 
 def install_pkg_factory():
@@ -26,7 +44,7 @@ def install_pkg_factory():
     def install_pkg(pkgs: list[str]):
         if os_name not in SUPPORTED_DISTROS:
             raise Exception(
-                f"Detected unsupported OS distribution: {os_name}, only Debian and Ubuntu are supported"
+                f"Detected unsupported OS distribution: {os_name}, only {SUPPORTED_DISTROS} are supported"
             )
 
         if os_name in ["Debian", "Ubuntu"]:
