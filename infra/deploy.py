@@ -40,8 +40,9 @@ def setup():
         nvim_path = str(Path(home, const.NVIM_DIR))
 
         configure_user(user_conf)
-        configure_nvim(user, nvim_path)
 
         python.call(name="Ensure Oh My ZSH", function=ensure_omz, user=user, home=home)
+
+        configure_nvim(user, nvim_path)
 
     python.call(name="Ensure pyenv", function=ensure_pyenv)

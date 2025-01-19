@@ -1,5 +1,7 @@
 from pyinfra.api.deploy import deploy
-from pyinfra.operations import git, server
+from pyinfra.context import host
+from pyinfra.facts.server import Home
+from pyinfra.operations import files, git, server
 
 from infra import const
 
@@ -22,4 +24,10 @@ def configure_nvim(user: str, path: str):
         dest=path,
         _sudo=True,
         _sudo_user=user,
+    )
+
+    home = host.get_fact(Home)
+
+    files.line(
+        line="alias vim=nvim", path=f"{home}/.zshrc", _sudo=True, _sudo_user=user
     )
