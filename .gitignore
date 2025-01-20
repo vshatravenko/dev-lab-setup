@@ -11,3 +11,4 @@ pyinfra-debug*
 .venv
 
 TODO.md
+tmp/

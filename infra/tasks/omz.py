@@ -1,3 +1,4 @@
+from pyinfra import logger
 from pyinfra.api.deploy import deploy
 from pyinfra.context import host
 from pyinfra.facts.files import Directory
@@ -70,6 +71,8 @@ def configure_shell(user: str):
     ok, out = host.run_shell_command(f"grep {user}:x /etc/passwd")
     if not ok:
         raise Exception(f"Could not determine the user's shell: {out.stderr}")
+
+    logger.info(f"Configuring the shell for {user}")
 
     current = out.stdout
     if "zsh" not in current:

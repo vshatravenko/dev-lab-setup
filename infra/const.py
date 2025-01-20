@@ -73,7 +73,7 @@ PACMAN_BASE_PKGS = [
     "gcc",
 ]
 
-PACMAN_PYENV_PKGS = ["base-devel", "openssl", "zlib", "xz", "tk"]
+PACMAN_PYENV_PKGS = ["base-devel", "openssl", "zlib", "xz", "tk", "make", "pkg-config"]
 
 
 DEFAULT_PYTHON_VERSION = "3.12"

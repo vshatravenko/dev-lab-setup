@@ -13,8 +13,8 @@ PYENV_ROOT = "/opt/pyenv"
 
 def ensure_pyenv():
     is_installed = server.shell(
-        commands=["zsh -c 'source $HOME/.zshrc; command -v pyenv'"],
         name="Check for pyenv presence",
+        commands=["zsh -c 'source $HOME/.zshrc; command -v pyenv'"],
         _sudo=True,
     )
 
@@ -89,7 +89,12 @@ def install_build_deps():
         pkgs = const.APT_PYENV_PKGS
     elif os_name in ["Fedora", "CentOS", "RHEL"]:
         pkgs = const.YUM_PYENV_PKGS
-    elif os_name in ["Arch", "Manjaro"]:
+    elif os_name in [
+        "Arch Linux",
+        "Arch Linux ARM",
+        "Manjaro Linux",
+        "Manjaro Linux ARM",
+    ]:
         pkgs = const.PACMAN_PYENV_PKGS
 
     server.packages(name="Ensure packages", packages=pkgs, _sudo=True)

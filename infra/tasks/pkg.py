@@ -13,7 +13,7 @@ SUPPORTED_DISTROS = (
     "CentOS",
     "Arch Linux",
     "Arch Linux ARM",
-    "Manjaro",
+    "Manjaro Linux",
     "Manjaro ARM",
 )
 
@@ -34,7 +34,12 @@ def install_base_pkgs():
         server.packages(packages=const.APT_BASE_PKGS, _sudo=True)
     elif os_name in ["Fedora", "CentOS"]:
         server.packages(packages=const.YUM_BASE_PKGS, _sudo=True)
-    elif os_name in ["ArchLinux", "Arch Linux ARM", "Manjaro", "Manjaro ARM"]:
+    elif os_name in [
+        "ArchLinux",
+        "Arch Linux ARM",
+        "Manjaro Linux",
+        "Manjaro Linux ARM",
+    ]:
         server.packages(packages=const.PACMAN_BASE_PKGS, _sudo=True)
 
 

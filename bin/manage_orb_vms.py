@@ -54,7 +54,7 @@ def delete_orb_vm(name: str):
 
 def handle(action: str, names: list[str]):
     machines = {}
-    if not names:
+    if not names or names == [""]:
         machines = VMS
     else:
         machines = dict((k, dict(VMS[k])) for k in VMS if k in names)
@@ -94,6 +94,7 @@ if __name__ == "__main__":
         "--names",
         "-n",
         type=str,
+        default="",
         help="name of the VM to use",
     )
 
