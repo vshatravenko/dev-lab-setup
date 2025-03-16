@@ -6,7 +6,7 @@ from pyinfra.context import host
 from pyinfra.operations import python, server
 
 from . import const
-from .tasks.nvim import configure_nvim
+from .tasks.nvim import configure_nvim, install_nvim
 from .tasks.omz import ensure_omz
 from .tasks.pkg import install_base_pkgs
 from .tasks.pyenv import ensure_pyenv
@@ -43,6 +43,7 @@ def setup():
 
         python.call(name="Ensure Oh My ZSH", function=ensure_omz, user=user, home=home)
 
+        install_nvim()
         configure_nvim(user, nvim_path)
 
     python.call(name="Ensure pyenv", function=ensure_pyenv)

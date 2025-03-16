@@ -1,6 +1,5 @@
 GROUP = "dev"
 APT_BASE_PKGS = [
-    "neovim",
     "build-essential",
     "git",
     "fzf",
@@ -32,7 +31,6 @@ APT_PYENV_PKGS = [
 
 YUM_BASE_PKGS = [
     "acl",
-    "neovim",
     "git",
     "make",
     "automake",
@@ -42,6 +40,7 @@ YUM_BASE_PKGS = [
     "npm",
     "unzip",
     "python3",
+    "glibc",
 ]
 
 YUM_PYENV_PKGS = [
@@ -58,19 +57,20 @@ YUM_PYENV_PKGS = [
     "tk-devel",
     "libffi-devel",
     "xz-devel",
+    "glibc",
 ]
 
 PACMAN_BASE_PKGS = [
     "git",
     "curl",
     "wget",
-    "neovim",
     "fzf",
     "ripgrep",
     "go",
     "npm",
     "unzip",
     "gcc",
+    "glibc",
 ]
 
 PACMAN_PYENV_PKGS = ["base-devel", "openssl", "zlib", "xz", "tk", "make", "pkg-config"]
@@ -78,5 +78,8 @@ PACMAN_PYENV_PKGS = ["base-devel", "openssl", "zlib", "xz", "tk", "make", "pkg-c
 
 DEFAULT_PYTHON_VERSION = "3.12"
 
-NVIM_SRC = "https://github.com/vshatravenko/nvim-conf"
+NVIM_BASE_URL = "https://github.com/neovim/neovim/releases/download"
+NVIM_VERSION = "v0.10.4"
+
+NVIM_CONF_SRC = "https://github.com/vshatravenko/nvim-conf"
 NVIM_DIR = ".config/nvim"

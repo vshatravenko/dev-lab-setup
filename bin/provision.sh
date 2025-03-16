@@ -2,8 +2,10 @@
 
 set -e
 
+PYINFRA_INVENTORY="${1:-inventory.py}"
+
 if command -v uv; then
-    uvx pyinfra -y inventory.py main.py "$@"
+    uvx pyinfra -y "${PYINFRA_INVENTORY}" main.py "$@"
 else
-    pyinfra -y inventory.py main.py "$@"
+    pyinfra -y "${PYINFRA_INVENTORY}" main.py "$@"
 fi
