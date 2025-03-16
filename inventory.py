@@ -7,6 +7,13 @@ users = [
     {"name": "fantasy"},
 ]
 
+proxies = {
+    "HTTP_PROXY": "http://example.com:80",
+    "HTTPS_PROXY": "http://example.com:80",
+    "http_proxy": "http://example.com:80",
+    "https_proxy": "http://example.com:80",
+}
+
 my_hosts = [
     #   (
     #       "@ssh/ubuntu-lab.orb.local",
